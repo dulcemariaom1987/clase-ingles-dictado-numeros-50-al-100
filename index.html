@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dictado de Números 50-100</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Quicksand:wght@500;600;700&display=swap');
+
+:root{
+  --red:#FF6B6B;
+  --yellow:#FFD23F;
+  --blue:#4EC5F1;
+  --green:#06D6A0;
+  --purple:#8A6BC9;
+  --orange:#FF9F45;
+  --ink:#2D2A32;
+  --cream:#FFFBF2;
+}
+
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  font-family:'Quicksand', sans-serif;
+  color:var(--ink);
+  background:linear-gradient(180deg, var(--blue) 0%, #BFE9FC 26%, var(--cream) 46%);
+  background-attachment:fixed;
+  overflow-x:hidden;
+}
+h1,h2,h3,button{font-family:'Baloo 2', sans-serif;}
+
+/* ===== HERO ===== */
+.hero{
+  text-align:center;
+  padding:40px 16px 64px;
+}
+.hero h1{
+  font-size:clamp(1.6rem, 5vw, 2.6rem);
+  color:var(--purple);
+  margin:0 0 8px;
+  text-shadow:3px 3px 0 #fff;
+}
+.hero p{
+  font-size:1.1rem;
+  font-weight:700;
+  color:#345;
+  margin:4px 0;
+  max-width:640px;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+main{ max-width:980px; margin:-36px auto 0; padding:0 14px 50px; }
+.card{
+  background:#fff;
+  border-radius:26px;
+  padding:24px clamp(14px,4vw,32px);
+  margin-bottom:30px;
+  box-shadow:0 12px 0 rgba(45,42,50,.06), 0 4px 20px rgba(45,42,50,.08);
+}
+.section-title{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin:0 0 6px;
+  font-size:1.4rem;
+  color:var(--purple);
+  text-align:center;
+  justify-content:center;
+}
+.section-title .icon{font-size:1.9rem;}
+.section-sub{
+  text-align:center;
+  color:#5b5460;
+  font-weight:700;
+  margin-top:0;
+  margin-bottom:10px;
+  font-size:1rem;
+}
+.section-sub-en{
+  text-align:center;
+  color:#9a8fae;
+  font-weight:700;
+  font-style:italic;
+  margin-top:0;
+  margin-bottom:20px;
+  font-size:.95rem;
+}
+.note{
+  background:#FFF6DA;
+  border:2px dashed var(--yellow);
+  border-radius:16px;
+  padding:10px 16px;
+  font-weight:700;
+  color:#7a5c00;
+  margin-bottom:20px;
+  text-align:center;
+  font-size:.95rem;
+}
+
+/* ===== PARTE 1: DICTADO ===== */
+.p1-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill, minmax(140px, 1fr));
+  gap:12px;
+  margin-bottom:20px;
+}
+.dictado-item{
+  border:3px solid #EDE8FF;
+  background:linear-gradient(160deg, #fff, #F6F3FF);
+  border-radius:16px;
+  padding:10px;
+  text-align:center;
+}
+.item-label{
+  display:block;
+  font-weight:800;
+  color:var(--purple);
+  font-size:.85rem;
+  margin-bottom:4px;
+}
+.speak-icon{
+  border:none;
+  border-radius:50%;
+  width:42px;
+  height:42px;
+  font-size:1.2rem;
+  background:var(--green);
+  color:#fff;
+  cursor:pointer;
+  box-shadow:0 3px 0 #048f6d;
+  margin-bottom:8px;
+}
+.speak-icon:active{ transform:translateY(3px); box-shadow:none; }
+.p1-input, .p2-input{
+  width:100%;
+  border:3px dashed var(--purple);
+  border-radius:10px;
+  padding:8px 6px;
+  font-size:1.1rem;
+  font-family:'Quicksand', sans-serif;
+  font-weight:800;
+  text-align:center;
+  background:#fff;
+  color:var(--ink);
+}
+.p1-input.correct, .p2-input.correct{ border-color:var(--green); border-style:solid; background:#E9FBF5; }
+.p1-input.wrong, .p2-input.wrong{ border-color:var(--red); border-style:solid; background:#FFEFEF; }
+
+/* ===== PARTE 2: ANTES Y DESPUES ===== */
+.p2-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill, minmax(190px, 1fr));
+  gap:14px;
+  margin-bottom:20px;
+}
+.ba-item{
+  border:3px solid #FFE6D5;
+  background:linear-gradient(160deg, #fff, #FFF6EF);
+  border-radius:16px;
+  padding:12px;
+}
+.ba-top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:8px;
+}
+.tag{
+  font-size:.72rem;
+  font-weight:800;
+  padding:4px 9px;
+  border-radius:20px;
+  color:#fff;
+}
+.tag-before{ background:var(--blue); }
+.tag-after{ background:var(--orange); }
+.ba-boxes{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.box-given{
+  flex:1;
+  border:3px solid #D8D2E8;
+  border-radius:10px;
+  padding:8px 6px;
+  font-size:1.15rem;
+  font-weight:800;
+  text-align:center;
+  background:#F3F1FA;
+  color:var(--purple);
+}
+.ba-boxes .p2-input{ flex:1; }
+
+/* ===== BOTONES ===== */
+.action-row{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:12px;
+  margin-top:8px;
+}
+.check-btn{
+  border:none;
+  border-radius:16px;
+  padding:11px 24px;
+  background:var(--green);
+  color:#fff;
+  font-weight:800;
+  font-size:1rem;
+  cursor:pointer;
+  box-shadow:0 4px 0 #048f6d;
+}
+.check-btn:active{ transform:translateY(3px); box-shadow:none; }
+.reset-btn{
+  border:none;
+  border-radius:16px;
+  padding:11px 24px;
+  background:var(--yellow);
+  color:var(--ink);
+  font-weight:800;
+  font-size:1rem;
+  cursor:pointer;
+  box-shadow:0 4px 0 #d4a600;
+}
+.reset-btn:active{ transform:translateY(3px); box-shadow:none; }
+.result-text{
+  text-align:center;
+  font-weight:800;
+  color:var(--purple);
+  font-size:1.15rem;
+  margin-top:14px;
+  min-height:26px;
+}
+
+footer{ text-align:center; padding:20px 16px 46px; color:#5b5460; font-weight:800; }
+footer .big{ font-size:2rem; }
+
+@media (max-width:480px){
+  .hero{ padding:32px 12px 52px; }
+  .card{ padding:18px 12px; }
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>🔢 Dictado de Números: del 50 al 100</h1>
+  <p>Práctica de números en inglés: escuchar, escribir, y reconocer el antecesor y sucesor</p>
+</div>
+
+<main>
+
+  <!-- PARTE 1 -->
+  <section class="card" id="parte1">
+    <h2 class="section-title"><span class="icon">🎧</span> Parte 1: Listen and write</h2>
+    <p class="section-sub">Escucha el número en inglés y escríbelo con cifras (números) en la casilla</p>
+    <p class="section-sub-en">Toca 🔊 para escuchar cada número</p>
+    <div class="note">Los números están en desorden. ¡Escucha con atención antes de escribir! 🎯</div>
+    <div class="p1-grid" id="part1Grid"></div>
+    <div class="action-row">
+      <button class="check-btn" id="checkPart1Btn">✅ Comprobar Parte 1</button>
+      <button class="reset-btn" id="resetPart1Btn">🔄 Números nuevos</button>
+    </div>
+    <div class="result-text" id="p1Result"></div>
+  </section>
+
+  <!-- PARTE 2 -->
+  <section class="card" id="parte2">
+    <h2 class="section-title"><span class="icon">🔢</span> Parte 2: Before &amp; After</h2>
+    <p class="section-sub">Mira el número escrito y completa con el número que va antes (before) o después (after). No es dictado, no necesitas escuchar el audio.</p>
+    <div class="p2-grid" id="part2Grid"></div>
+    <div class="action-row">
+      <button class="check-btn" id="checkPart2Btn">✅ Comprobar Parte 2</button>
+      <button class="reset-btn" id="resetPart2Btn">🔄 Ejercicios nuevos</button>
+    </div>
+    <div class="result-text" id="p2Result"></div>
+  </section>
+
+  <footer>
+    <div class="big">🎉🔢🌟</div>
+    ¡Excelente trabajo practicando los números en inglés!
+  </footer>
+
+</main>
+
+<script>
+/* ================= UTILIDADES ================= */
+function rangeArray(start, end){
+  const arr = [];
+  for(let i = start; i <= end; i++) arr.push(i);
+  return arr;
+}
+function shuffle(arr){
+  const a = [...arr];
+  for(let i = a.length - 1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+let cachedVoice = null;
+function pickVoice(){
+  const voices = window.speechSynthesis.getVoices();
+  cachedVoice = voices.find(v => v.lang === 'en-US') || voices.find(v => v.lang && v.lang.startsWith('en')) || null;
+}
+if('speechSynthesis' in window){
+  pickVoice();
+  window.speechSynthesis.onvoiceschanged = pickVoice;
+}
+function speak(text){
+  if(!('speechSynthesis' in window)) return;
+  window.speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = 'en-US';
+  u.rate = 0.85;
+  u.pitch = 1.05;
+  if(cachedVoice) u.voice = cachedVoice;
+  window.speechSynthesis.speak(u);
+}
+
+/* ================= PARTE 1: DICTADO (50 a 100 desordenados) ================= */
+let part1Numbers = [];
+
+function renderPart1(){
+  part1Numbers = shuffle(rangeArray(50, 100));
+  const grid = document.getElementById('part1Grid');
+  grid.innerHTML = part1Numbers.map((num, i) => `
+    <div class="dictado-item">
+      <span class="item-label">🔸</span>
+      <button class="speak-icon" data-index="${i}">🔊</button>
+      <input type="text" inputmode="numeric" maxlength="3" class="p1-input" id="p1-input-${i}" placeholder="?">
+    </div>
+  `).join('');
+  document.getElementById('p1Result').textContent = '';
+}
+
+function checkPart1(){
+  let correctCount = 0;
+  part1Numbers.forEach((num, i) => {
+    const input = document.getElementById('p1-input-' + i);
+    const val = input.value.trim();
+    if(val === String(num)){
+      input.classList.add('correct');
+      input.classList.remove('wrong');
+      correctCount++;
+    } else {
+      input.classList.add('wrong');
+      input.classList.remove('correct');
+    }
+  });
+  document.getElementById('p1Result').textContent = `Aciertos: ${correctCount} / ${part1Numbers.length}`;
+}
+
+/* ================= PARTE 2: ANTES Y DESPUES (25 mezclados) ================= */
+const PART2_COUNT = 25;
+let part2Items = [];
+
+function renderPart2(){
+  const bases = shuffle(rangeArray(50, 100)).slice(0, PART2_COUNT);
+  part2Items = bases.map(base => {
+    const type = Math.random() < 0.5 ? 'before' : 'after';
+    const answer = type === 'before' ? base - 1 : base + 1;
+    return { base, type, answer };
+  });
+
+  const grid = document.getElementById('part2Grid');
+  grid.innerHTML = part2Items.map((item, i) => {
+    const tagText = item.type === 'before' ? 'Before (antes)' : 'After (después)';
+    const tagClass = item.type === 'before' ? 'tag-before' : 'tag-after';
+    const boxesHtml = item.type === 'before'
+      ? `<input type="text" inputmode="numeric" maxlength="3" class="p2-input" id="p2-input-${i}" placeholder="?"><div class="box-given">${item.base}</div>`
+      : `<div class="box-given">${item.base}</div><input type="text" inputmode="numeric" maxlength="3" class="p2-input" id="p2-input-${i}" placeholder="?">`;
+    return `
+      <div class="ba-item">
+        <div class="ba-top">
+          <span class="item-label">⭐</span>
+          <span class="tag ${tagClass}">${tagText}</span>
+        </div>
+        <div class="ba-boxes">${boxesHtml}</div>
+      </div>
+    `;
+  }).join('');
+  document.getElementById('p2Result').textContent = '';
+}
+
+function checkPart2(){
+  let correctCount = 0;
+  part2Items.forEach((item, i) => {
+    const input = document.getElementById('p2-input-' + i);
+    const val = input.value.trim();
+    if(val === String(item.answer)){
+      input.classList.add('correct');
+      input.classList.remove('wrong');
+      correctCount++;
+    } else {
+      input.classList.add('wrong');
+      input.classList.remove('correct');
+    }
+  });
+  document.getElementById('p2Result').textContent = `Aciertos: ${correctCount} / ${part2Items.length}`;
+}
+
+/* ================= EVENTOS GLOBALES ================= */
+document.addEventListener('click', (e) => {
+  const speakBtn = e.target.closest('.speak-icon');
+  if(speakBtn){
+    const i = parseInt(speakBtn.dataset.index);
+    speak(String(part1Numbers[i]));
+    return;
+  }
+  if(e.target.id === 'checkPart1Btn'){ checkPart1(); return; }
+  if(e.target.id === 'checkPart2Btn'){ checkPart2(); return; }
+  if(e.target.id === 'resetPart1Btn'){ renderPart1(); return; }
+  if(e.target.id === 'resetPart2Btn'){ renderPart2(); return; }
+});
+
+/* ================= INICIALIZAR ================= */
+renderPart1();
+renderPart2();
+</script>
+</body>
+</html>
